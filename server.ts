@@ -1,11 +1,11 @@
 import express from 'express'
-import healthcheckRoutes from './healthcheck'
+import healthcheckRoutes from './routes/healthcheck'
+import { SERVER_PORT } from './routes/env'
 
-const PORT = process.env.PORT ?? 8000
 const app = express()
 
 healthcheckRoutes(app)
 
-app.listen(PORT, () => {
-    console.debug(`Server running on ${PORT}`)
+app.listen(SERVER_PORT, () => {
+    console.debug(`Server running on ${SERVER_PORT}`)
 })
