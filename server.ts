@@ -1,7 +1,7 @@
 import express from 'express'
 import healthcheckRoutes from './routes/healthcheck'
-import { SERVER_PORT } from './routes/env'
-import logger from './routes/logger'
+import { SERVER_PORT } from './utils/env'
+import logger from './utils/logger'
 
 const app = express()
 
