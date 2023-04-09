@@ -1,0 +1,42 @@
+{
+    "title": "Socket server config schema",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "rooms": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "events": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "oneOf": [{
+                                        "const": "unicast",
+                                        "description": "Send to a user"
+                                    }, {
+                                        "const": "broadcast",
+                                        "description": "broadcast to whole channel"
+                                    }]
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
