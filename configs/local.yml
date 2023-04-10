@@ -1,0 +1,8 @@
+name: Sample server
+rooms:
+    - name: My room
+      events:
+        - name: send_to_peer
+          type: unicast
+        - name: send_everyone
+          type: broadcast
