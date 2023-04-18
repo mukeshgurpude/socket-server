@@ -1,9 +1,8 @@
 name: Sample server
 enableAdmin: true
-rooms:
-    - name: My room
-      events:
-        - name: send_to_peer
-          type: unicast
-        - name: send_everyone
-          type: broadcast
+events:
+- name: send_to_peer
+  type: unicast
+- name: send_everyone
+  type: broadcast
+  emitEvent: "send_to_peer"

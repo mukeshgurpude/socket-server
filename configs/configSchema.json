@@ -1,4 +1,5 @@
 {
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Socket server config schema",
     "type": "object",
     "properties": {
@@ -9,36 +10,23 @@
             "type": "boolean",
             "default": false
         },
-        "rooms": {
+        "events": {
             "type": "array",
             "items": {
                 "type": "object",
+                "required": ["name", "type"],
                 "properties": {
                     "name": {
                         "type": "string"
                     },
-                    "events": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string"
-                                },
-                                "type": {
-                                    "type": "string",
-                                    "oneOf": [{
-                                        "const": "unicast",
-                                        "description": "Send to a user"
-                                    }, {
-                                        "const": "broadcast",
-                                        "description": "broadcast to whole channel"
-                                    }]
-                                }
-
-                            }
-                        }
+                    "emitEvent": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [ "unicast", "broadcast" ]
                     }
+
                 }
             }
         }

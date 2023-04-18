@@ -21,8 +21,10 @@
   },
   "dependencies": {
     "@socket.io/admin-ui": "^0.5.1",
+    "@types/lodash": "^4.14.194",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "lodash": "^4.17.21",
     "socket.io": "^4.6.1",
     "winston": "^3.8.2",
     "yaml": "^2.2.1"
