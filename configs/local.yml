@@ -1,4 +1,5 @@
 name: Sample server
+enableAdmin: true
 rooms:
     - name: My room
       events:
