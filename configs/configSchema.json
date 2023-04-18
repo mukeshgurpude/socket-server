@@ -5,6 +5,10 @@
         "name": {
             "type": "string"
         },
+        "enableAdmin": {
+            "type": "boolean",
+            "default": false
+        },
         "rooms": {
             "type": "array",
             "items": {
