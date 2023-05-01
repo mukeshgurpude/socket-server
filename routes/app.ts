@@ -1,9 +1,10 @@
 import express from 'express'
-import healthcheckRoutes from './healthcheck'
+import { errorHandler, healthcheck, notFound, responseLogger } from './common'
 
 
 const app = express()
 
-healthcheckRoutes(app)
+app.get('/ping', healthcheck)
+app.use(notFound, responseLogger, errorHandler)
 
 export default app
