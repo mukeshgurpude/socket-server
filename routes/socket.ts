@@ -1,7 +1,7 @@
 import type { Server } from 'http'
 import { BroadcastOperator, ServerOptions, Server as WebSocketServer } from 'socket.io'
 import logger from '../utils/logger'
-import config from '../utils/config'
+import config, { wsConfig } from '../utils/config'
 import { EventType } from '../types/event'
 import { instrument } from '@socket.io/admin-ui'
 import { SocketMessage } from '../types/message'
@@ -9,14 +9,6 @@ import generifyMessage from '../utils/generifyMessage'
 import { DecorateAcknowledgementsWithMultipleResponses, DefaultEventsMap } from 'socket.io/dist/typed-events'
 
 export default function connectSocket(server: Server) {
-    // TODO: move to some constants file
-    const wsConfig: Partial<ServerOptions> = config.enableAdmin ? {
-        cors: {
-            origin: ['https://admin.socket.io'],
-            credentials: true
-        }
-    } : {}
-
     const io = new WebSocketServer(server, wsConfig)
 
     if (config.enableAdmin) {
