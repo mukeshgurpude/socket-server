@@ -5,4 +5,7 @@ events:
   type: unicast
 - name: send_everyone
   type: broadcast
-  emitEvent: "send_to_peer"
+  emitEvent: send_to_peer
+joinOnConnection:
+  - test
+  - peers

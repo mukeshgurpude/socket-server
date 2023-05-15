@@ -7,6 +7,7 @@ import { instrument } from '@socket.io/admin-ui'
 import { SocketMessage } from '../types/message'
 import generifyMessage from '../utils/generifyMessage'
 import { DecorateAcknowledgementsWithMultipleResponses, DefaultEventsMap } from 'socket.io/dist/typed-events'
+import _ from 'lodash'
 
 export default function connectSocket(server: Server) {
     const io = new WebSocketServer(server, wsConfig)
@@ -20,6 +21,10 @@ export default function connectSocket(server: Server) {
     io.on('connection', (socket) => {
         logger.debug(`A user connected: ${socket.id}`)
 
+        if (config.joinOnConnection) {
+            socket.join(config.joinOnConnection)
+        }
+
         socket.on('disconnect', () => {
             logger.debug(`${socket.id} disconnected`)
         })
@@ -31,19 +36,31 @@ export default function connectSocket(server: Server) {
                 if (message.join?.length) {
                     socket.join(message.join)
                 }
+
+                if (event.joinKey) {
+                    const roomsToJoin : string[] = _.get(message, event.joinKey)
+                    if (roomsToJoin && roomsToJoin.length > 0) {
+                        socket.join(roomsToJoin)
+                    }
+                }
+
                 (message.leave as string[])
                     ?.forEach(roomName => socket.leave(roomName))
+
 
                 const rooms: string[] = []
 
                 if (event.type == EventType.unicast) rooms.push(message.to)
                 else if (message.broadcastTo) rooms.push(...message.broadcastTo)
 
-                let currentSocket: BroadcastOperator<DecorateAcknowledgementsWithMultipleResponses<DefaultEventsMap>, unknown> = null
-                rooms.forEach(room => currentSocket = currentSocket == null ? socket.to(room) : currentSocket.to(room))
-
-                currentSocket?.emit(event.emitEvent, message.message)
+                socket
+                    // In case of no to or broadcastTo, event will be sent to all rooms where sender is joined
+                    .to(rooms)
+                    // send emitEvent or current event
+                    .emit(event.emitEvent ?? event.name, message.message)
             })
+
+            logger.debug(`Setup ${event.name}`)
         })
     })
 
