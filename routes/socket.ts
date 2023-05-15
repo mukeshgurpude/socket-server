@@ -1,13 +1,12 @@
-import type { Server } from 'http'
-import { BroadcastOperator, ServerOptions, Server as WebSocketServer } from 'socket.io'
-import logger from '../utils/logger'
-import config, { wsConfig } from '../utils/config'
-import { EventType } from '../types/event'
 import { instrument } from '@socket.io/admin-ui'
-import { SocketMessage } from '../types/message'
-import generifyMessage from '../utils/generifyMessage'
-import { DecorateAcknowledgementsWithMultipleResponses, DefaultEventsMap } from 'socket.io/dist/typed-events'
+import type { Server } from 'http'
 import _ from 'lodash'
+import { Server as WebSocketServer } from 'socket.io'
+import { EventType } from '../types/event'
+import { SocketMessage } from '../types/message'
+import config, { wsConfig } from '../utils/config'
+import generifyMessage from '../utils/generifyMessage'
+import logger from '../utils/logger'
 
 export default function connectSocket(server: Server) {
     const io = new WebSocketServer(server, wsConfig)
