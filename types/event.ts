@@ -1,8 +1,10 @@
 export interface SocketEvent {
     name: string;
     type: EventType;
+    joinKey: string
+    emitEvent?: string
 }
 
-enum EventType {
+export enum EventType {
     unicast, broadcast
 }

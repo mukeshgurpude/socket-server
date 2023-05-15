@@ -1,6 +1,12 @@
-import { Room } from './room'
+import { SocketEvent } from './event'
 
 export interface Config {
     name: string
-    rooms: Room[]
+    enableAdmin: boolean
+    events: SocketEvent[]
+    joinOnConnection: string[]
+}
+
+export const defaults: Pick<Config, 'enableAdmin'> = {
+    enableAdmin: false
 }
