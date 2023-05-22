@@ -1,0 +1,11 @@
+name: Sample server
+enableAdmin: true
+events:
+- name: send_to_peer
+  type: unicast
+- name: send_everyone
+  type: broadcast
+  emitEvent: send_to_peer
+joinOnConnection:
+  - test
+  - peers
